@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import sagas from "./sagas";
 
-import MyReducer from "./reducers/MyReducer";
+import map from "./reducers/Map";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -28,7 +28,7 @@ if (clientEnv === "local") {
 }
 
 const reducers = combineReducers({
-  MyReducer,
+  map,
 });
 
 const rootReducer = (state, action) => {
