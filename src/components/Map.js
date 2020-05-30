@@ -1,9 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Typography } from "@material-ui/core";
-import {
-  useSelector
-  // useDispatch
-} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
@@ -16,8 +13,9 @@ const styles = {
 };
 
 export const MapComponent = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const mapData = useSelector(state => state.map);
+  const selectedMapStyle = useSelector(state => state.map.selectedStyle);
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
 
@@ -25,7 +23,7 @@ export const MapComponent = () => {
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: mapData.styles[0].url,
+        style: selectedMapStyle.url,
         center: [mapData.lng, mapData.lat],
         zoom: mapData.zoom
       });
@@ -37,14 +35,28 @@ export const MapComponent = () => {
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
-  }, [map, mapData]);
+  }, [map, mapData, selectedMapStyle]);
 
   return (
-    <React.Fragment style={{ height: "100vh" }}>
+    <div style={{ height: "100vh" }}>
       <Typography variant="h3" gutterBottom style={{ align: "center" }}>
-        {mapData.styles[0].name}
+        {selectedMapStyle.name}
       </Typography>
+      <button
+        onClick={() => {
+          dispatch({
+            type: "REQUEST_NEXT_MAP",
+            payload: {
+              currentIndex: selectedMapStyle.index,
+              availableStyles: mapData.availableStyles
+            }
+          });
+          setMap(null);
+        }}
+      >
+        Next Map Layer
+      </button>
       <div ref={el => (mapContainer.current = el)} style={styles} />
-    </React.Fragment>
+    </div>
   );
 };
