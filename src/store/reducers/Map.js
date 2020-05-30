@@ -3,9 +3,12 @@ import produce from "immer";
 import * as actions from "../actions";
 
 const initialState = {
-  lat: 29.7604,
-  lng: -95.3698,
-  zoom: 8,
+  lat: 38.0,
+  lng: -97.0,
+  zoom: 3.75,
+  styles: {
+    hospitalized: "mapbox://styles/xiupan/ckatvrt2331411ipf1kvl6kpa/draft"
+  }
 };
 
 const setMapLat = produce((draft, action) => {
@@ -26,7 +29,7 @@ const setMapZoom = produce((draft, action) => {
 const handlers = {
   [actions.SET_MAP_LAT]: setMapLat,
   [actions.SET_MAP_LNG]: setMapLng,
-  [actions.SET_MAP_ZOOM]: setMapZoom,
+  [actions.SET_MAP_ZOOM]: setMapZoom
 };
 
 export default buildReducer(initialState, handlers);

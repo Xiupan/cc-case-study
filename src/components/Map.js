@@ -1,26 +1,31 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {
+  useSelector
+  // useDispatch
+} from "react-redux";
 import mapboxgl from "mapbox-gl";
+
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 
 const styles = {
   width: "100vw",
   height: "calc(100vh - 80px)",
-  position: "absolute",
+  position: "absolute"
 };
 
 export const MapComponent = () => {
-  const mapReduxStore = useSelector((state) => state.map);
+  // const dispatch = useDispatch();
+  const mapData = useSelector(state => state.map);
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
 
   useEffect(() => {
-    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
     const initializeMap = ({ setMap, mapContainer }) => {
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-        center: [mapReduxStore.lng, mapReduxStore.lat],
-        zoom: mapReduxStore.zoom,
+        style: mapData.styles.hospitalized,
+        center: [mapData.lng, mapData.lat],
+        zoom: mapData.zoom
       });
 
       map.on("load", () => {
@@ -30,7 +35,7 @@ export const MapComponent = () => {
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
-  }, [map, mapReduxStore]);
+  }, [map, mapData]);
 
-  return <div ref={(el) => (mapContainer.current = el)} style={styles} />;
+  return <div ref={el => (mapContainer.current = el)} style={styles} />;
 };
