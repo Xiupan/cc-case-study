@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/cc-case-study/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/cc-case-study/static/js/main.f0f417b2.chunk.js",
+    "main.js.map": "/cc-case-study/static/js/main.f0f417b2.chunk.js.map",
+    "runtime-main.js": "/cc-case-study/static/js/runtime-main.f6615879.js",
+    "runtime-main.js.map": "/cc-case-study/static/js/runtime-main.f6615879.js.map",
+    "static/js/2.ce6a5f8f.chunk.js": "/cc-case-study/static/js/2.ce6a5f8f.chunk.js",
+    "static/js/2.ce6a5f8f.chunk.js.map": "/cc-case-study/static/js/2.ce6a5f8f.chunk.js.map",
+    "index.html": "/cc-case-study/index.html",
+    "precache-manifest.3b0dd6169b6e1a51e21bc3865e51a3e0.js": "/cc-case-study/precache-manifest.3b0dd6169b6e1a51e21bc3865e51a3e0.js",
+    "service-worker.js": "/cc-case-study/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/cc-case-study/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.ce6a5f8f.chunk.js.LICENSE.txt": "/cc-case-study/static/js/2.ce6a5f8f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f6615879.js",
+    "static/js/2.ce6a5f8f.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.f0f417b2.chunk.js"
+  ]
+}
