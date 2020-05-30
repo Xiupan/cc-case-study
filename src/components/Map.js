@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Button, Grid } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import mapboxgl from "mapbox-gl";
 
@@ -8,7 +8,6 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
 const styles = {
   width: "100vw",
   height: "calc(100vh - 80px)",
-  // height: "90vh",
   position: "absolute"
 };
 
@@ -38,24 +37,52 @@ export const MapComponent = () => {
   }, [map, mapData, selectedMapStyle]);
 
   return (
-    <div style={{ height: "100vh" }}>
-      <Typography variant="h3" gutterBottom style={{ align: "center" }}>
-        {selectedMapStyle.name}
-      </Typography>
-      <button
-        onClick={() => {
-          dispatch({
-            type: "REQUEST_NEXT_MAP",
-            payload: {
-              currentIndex: selectedMapStyle.index,
-              availableStyles: mapData.availableStyles
-            }
-          });
-          setMap(null);
-        }}
+    <div>
+      <Grid
+        container
+        spacing={6}
+        direction="row"
+        justify="space-between"
+        alignItems="center"
       >
-        Next Map Layer
-      </button>
+        <Grid item xs>
+          <Typography
+            variant="h5"
+            gutterBottom
+            style={{ align: "center", margin: "5px" }}
+          >
+            {selectedMapStyle.name}
+          </Typography>
+        </Grid>
+        <Grid item xs>
+          <Typography
+            variant="h5"
+            gutterBottom
+            style={{ align: "center", margin: "5px" }}
+          >
+            COVID-19 Data (May 28, 2020)
+          </Typography>
+        </Grid>
+        <Grid item xs>
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{ margin: "5px" }}
+            onClick={() => {
+              dispatch({
+                type: "REQUEST_NEXT_MAP",
+                payload: {
+                  currentIndex: selectedMapStyle.index,
+                  availableStyles: mapData.availableStyles
+                }
+              });
+              setMap(null);
+            }}
+          >
+            Next Map Layer
+          </Button>
+        </Grid>
+      </Grid>
       <div ref={el => (mapContainer.current = el)} style={styles} />
     </div>
   );

@@ -1,3 +1,3 @@
-import MySaga from "./MySaga";
+import MapSaga from "./Map";
 
-export default [...MySaga];
+export default [...MapSaga];
