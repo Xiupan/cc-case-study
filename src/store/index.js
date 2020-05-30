@@ -8,7 +8,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const suffixes = {
   "my-future-url-dev.com": "stg",
-  "my-future-url.com": "production",
+  "my-future-url.com": "production"
 };
 
 // eslint-disable-next-line no-restricted-globals
@@ -20,7 +20,7 @@ if (clientEnv === "local") {
     (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
       window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         trace: true,
-        traceLimit: 25,
+        traceLimit: 25
       })) ||
     compose;
 } else {
@@ -28,7 +28,7 @@ if (clientEnv === "local") {
 }
 
 const reducers = combineReducers({
-  map,
+  map
 });
 
 const rootReducer = (state, action) => {

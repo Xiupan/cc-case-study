@@ -1,13 +1,9 @@
-import {
-  takeEvery,
-  // call,
-  // put
-} from "redux-saga/effects";
+import { takeEvery } from "redux-saga/effects";
 import * as actions from "../actions";
 
 function* someSagaThatDoesSomething(action) {
   try {
-    console.log("yay");
+    yield console.log("yay");
   } catch (error) {
     console.log(error);
   }
