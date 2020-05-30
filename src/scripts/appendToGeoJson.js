@@ -21,7 +21,7 @@ fs.readFile("../geojson/us-states.geojson", "utf8", async (err, data) => {
       obj.features.forEach(feature => {
         if (feature.properties.NAME === stateName) {
           Object.keys(c).forEach(key => {
-            feature.properties[key] = c[key];
+            feature.properties[key] = parseFloat(c[key]) || c[key];
           });
         }
       });
