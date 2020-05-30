@@ -6,9 +6,12 @@ const initialState = {
   lat: 38.0,
   lng: -97.0,
   zoom: 3.75,
-  styles: {
-    hospitalized: "mapbox://styles/xiupan/ckatvrt2331411ipf1kvl6kpa/draft"
-  }
+  styles: [
+    {
+      url: "mapbox://styles/xiupan/ckatvrt2331411ipf1kvl6kpa/draft",
+      name: "Number of Hospitalized"
+    }
+  ]
 };
 
 const setMapLat = produce((draft, action) => {
