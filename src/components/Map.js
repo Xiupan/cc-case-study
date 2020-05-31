@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Typography, Button, Grid } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
+import {
+  useSelector
+  // useDispatch
+} from "react-redux";
 import mapboxgl from "mapbox-gl";
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
@@ -11,30 +14,83 @@ const styles = {
   position: "absolute"
 };
 
+let layers = [
+  {
+    index: 0,
+    key: "number-of-dead",
+    visibility: "none",
+    label: "Number of Deaths"
+  },
+  {
+    index: 1,
+    key: "hospitalized",
+    visibility: "none",
+    label: "Number of Hospitalized"
+  }
+];
+
+let map;
+
 export const MapComponent = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const mapData = useSelector(state => state.map);
-  const selectedMapStyle = useSelector(state => state.map.selectedStyle);
-  const [map, setMap] = useState(null);
+  const [mapState, setMapState] = useState(null);
+  const [selectedLayer, setSelectedLayer] = useState(layers[0].label);
   const mapContainer = useRef(null);
 
+  const getLayers = mapArg => {
+    layers.forEach(layer => {
+      layer["visibility"] = mapArg.getLayoutProperty(
+        layer["key"],
+        "visibility"
+      );
+    });
+    return layers;
+  };
+
+  const nextLayer = mapArg => {
+    for (let i = 0; i < layers.length; i++) {
+      const layer = layers[i];
+      if (layer["visibility"] === "visible") {
+        layer["visibility"] = "none";
+        mapArg.setLayoutProperty(layer.key, "visibility", "none");
+        if (i + 1 > layers.length - 1) {
+          layers[0]["visibility"] = "visible";
+          mapArg.setLayoutProperty(layers[0].key, "visibility", "visible");
+          setSelectedLayer(layers[0].label);
+          break;
+        } else {
+          layers[i + 1]["visibility"] = "visible";
+          mapArg.setLayoutProperty(layers[i + 1].key, "visibility", "visible");
+          setSelectedLayer(layers[i + 1].label);
+          break;
+        }
+      }
+    }
+  };
+
   useEffect(() => {
-    const initializeMap = ({ setMap, mapContainer }) => {
-      const map = new mapboxgl.Map({
+    const initializeMap = ({ setMapState, mapContainer }) => {
+      map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: selectedMapStyle.url,
+        style: "mapbox://styles/xiupan/ckau8akp02sxa1itd90uq0dqj/draft",
         center: [mapData.lng, mapData.lat],
         zoom: mapData.zoom
       });
 
       map.on("load", () => {
-        setMap(map);
+        // set first layer visible by default on map load
+        map.setLayoutProperty("number-of-dead", "visibility", "visible");
+        map.setLayoutProperty("hospitalized", "visibility", "none");
+
+        getLayers(map);
+        setMapState(map);
         map.resize();
       });
     };
 
-    if (!map) initializeMap({ setMap, mapContainer });
-  }, [map, mapData, selectedMapStyle]);
+    if (!mapState) initializeMap({ setMapState, mapContainer });
+  }, [mapState, mapData]);
 
   return (
     <div>
@@ -51,7 +107,7 @@ export const MapComponent = () => {
             gutterBottom
             style={{ align: "center", margin: "5px" }}
           >
-            {selectedMapStyle.name}
+            {selectedLayer}
           </Typography>
         </Grid>
         <Grid item xs>
@@ -69,14 +125,7 @@ export const MapComponent = () => {
             color="primary"
             style={{ margin: "5px" }}
             onClick={() => {
-              dispatch({
-                type: "REQUEST_NEXT_MAP",
-                payload: {
-                  currentIndex: selectedMapStyle.index,
-                  availableStyles: mapData.availableStyles
-                }
-              });
-              setMap(null);
+              nextLayer(map);
             }}
           >
             Next Map Layer
