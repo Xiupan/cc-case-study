@@ -69,6 +69,46 @@ export const MapComponent = () => {
     }
   };
 
+  const numberOfDeadPopup = mapArg => {
+    mapArg.on("click", "number-of-dead", e => {
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(`Deaths: ${e.features[0].properties.death}`)
+        .addTo(mapArg);
+    });
+
+    mapArg.on("mouseenter", "number-of-dead", e => {
+      mapArg.getCanvas().style.cursor = "pointer";
+    });
+
+    mapArg.on("mouseleave", "number-of-dead", e => {
+      mapArg.getCanvas().style.cursor = "";
+    });
+  };
+
+  const hospitalizedPopup = mapArg => {
+    mapArg.on("click", "hospitalized", e => {
+      new mapboxgl.Popup()
+        .setLngLat(e.lngLat)
+        .setHTML(
+          e.features[0].properties.hospitalizedCurrently
+            ? `Currently Hospitalized: ${e.features[0].properties.hospitalizedCurrently}`
+            : `Currently Hospitalized: No data`
+        )
+        .addTo(mapArg);
+    });
+
+    // Change the cursor to a pointer when the mouse is over the states layer.
+    mapArg.on("mouseenter", "hospitalized", e => {
+      mapArg.getCanvas().style.cursor = "pointer";
+    });
+
+    // Change it back to a pointer when it leaves.
+    mapArg.on("mouseleave", "hospitalized", function() {
+      mapArg.getCanvas().style.cursor = "";
+    });
+  };
+
   useEffect(() => {
     const initializeMap = ({ setMapState, mapContainer }) => {
       map = new mapboxgl.Map({
@@ -87,6 +127,9 @@ export const MapComponent = () => {
         setMapState(map);
         map.resize();
       });
+
+      numberOfDeadPopup(map);
+      hospitalizedPopup(map);
     };
 
     if (!mapState) initializeMap({ setMapState, mapContainer });
