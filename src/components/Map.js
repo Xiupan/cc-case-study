@@ -30,7 +30,7 @@ let layers = [
 ];
 
 let map;
-let popup;
+let popup = new mapboxgl.Popup();
 
 export const MapComponent = () => {
   // const dispatch = useDispatch();
