@@ -7,6 +7,14 @@ let obj = {};
 let temp = {};
 let csvData = [];
 
+let hospitalizedCurrently = [];
+let deaths = [];
+
+let hospitalizedCurrentlyMin = 0;
+let hospitalizedCurrentlyMax = 0;
+let deathsMin = 0;
+let deathsMax = 0;
+
 fs.readFile("../geojson/us-states.geojson", "utf8", async (err, data) => {
   if (err) {
     console.log(err);
@@ -25,6 +33,35 @@ fs.readFile("../geojson/us-states.geojson", "utf8", async (err, data) => {
           });
         }
       });
+    });
+
+    // get an array for each metric
+    obj.features.forEach(f => {
+      if (f.properties) {
+        hospitalizedCurrently.push(
+          parseFloat(f.properties.hospitalizedCurrently)
+        );
+        deaths.push(parseFloat(f.properties.death));
+      }
+    });
+
+    hospitalizedCurrentlyMin = _.min(hospitalizedCurrently);
+    hospitalizedCurrentlyMax = _.max(hospitalizedCurrently);
+    deathsMin = _.min(deaths);
+    deathsMax = _.max(deaths);
+
+    // normalize the data for the metrics
+    obj.features.forEach(f => {
+      if (f.properties) {
+        f.properties["hospitalCurrentNormalized"] =
+          (parseFloat(f.properties["hospitalizedCurrently"]) -
+            hospitalizedCurrentlyMin) /
+          (hospitalizedCurrentlyMax - hospitalizedCurrentlyMin);
+
+        f.properties["deathsNormalized"] =
+          (parseFloat(f.properties["death"]) - deathsMin) /
+          (deathsMax - deathsMin);
+      }
     });
 
     json = JSON.stringify(obj);
