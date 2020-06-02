@@ -30,6 +30,7 @@ let layers = [
 ];
 
 let map;
+let popup;
 
 export const MapComponent = () => {
   // const dispatch = useDispatch();
@@ -58,11 +59,13 @@ export const MapComponent = () => {
           layers[0]["visibility"] = "visible";
           mapArg.setLayoutProperty(layers[0].key, "visibility", "visible");
           setSelectedLayer(layers[0].label);
+          popup.remove();
           break;
         } else {
           layers[i + 1]["visibility"] = "visible";
           mapArg.setLayoutProperty(layers[i + 1].key, "visibility", "visible");
           setSelectedLayer(layers[i + 1].label);
+          popup.remove();
           break;
         }
       }
@@ -71,7 +74,7 @@ export const MapComponent = () => {
 
   const numberOfDeadPopup = mapArg => {
     mapArg.on("click", "number-of-dead", e => {
-      new mapboxgl.Popup()
+      popup = new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(`Deaths: ${e.features[0].properties.death}`)
         .addTo(mapArg);
@@ -88,7 +91,7 @@ export const MapComponent = () => {
 
   const hospitalizedPopup = mapArg => {
     mapArg.on("click", "hospitalized", e => {
-      new mapboxgl.Popup()
+      popup = new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(
           e.features[0].properties.hospitalizedCurrently
