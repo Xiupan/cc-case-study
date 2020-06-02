@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/cc-case-study/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/cc-case-study/static/js/main.49c518fb.chunk.js",
-    "main.js.map": "/cc-case-study/static/js/main.49c518fb.chunk.js.map",
+    "main.js": "/cc-case-study/static/js/main.ad1205a3.chunk.js",
+    "main.js.map": "/cc-case-study/static/js/main.ad1205a3.chunk.js.map",
     "runtime-main.js": "/cc-case-study/static/js/runtime-main.f6615879.js",
     "runtime-main.js.map": "/cc-case-study/static/js/runtime-main.f6615879.js.map",
     "static/js/2.a73bf1b7.chunk.js": "/cc-case-study/static/js/2.a73bf1b7.chunk.js",
     "static/js/2.a73bf1b7.chunk.js.map": "/cc-case-study/static/js/2.a73bf1b7.chunk.js.map",
     "index.html": "/cc-case-study/index.html",
-    "precache-manifest.4faa138dce48237fe262db4169bd83ec.js": "/cc-case-study/precache-manifest.4faa138dce48237fe262db4169bd83ec.js",
+    "precache-manifest.4765755acb0a3d01ff29e45ecaf431f6.js": "/cc-case-study/precache-manifest.4765755acb0a3d01ff29e45ecaf431f6.js",
     "service-worker.js": "/cc-case-study/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/cc-case-study/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.a73bf1b7.chunk.js.LICENSE.txt": "/cc-case-study/static/js/2.a73bf1b7.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f6615879.js",
     "static/js/2.a73bf1b7.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.49c518fb.chunk.js"
+    "static/js/main.ad1205a3.chunk.js"
   ]
 }
