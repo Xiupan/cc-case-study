@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Crown Castle Case Study
 
-## Available Scripts
+## by Alan Hong
 
-In the project directory, you can run:
+### Technologies Used:
 
-### `yarn start`
+- React
+- Redux
+- Mapbox-GL
+- Material UI (4.10.0)
+- Immer
+- Lodash
+- Redux-Saga
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+First of all, thank you so much to Crown Castle for the opportunity to create this project! I learned a lot while creating and working on this project! Let me outline some of the features of this small web app.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Using the technologies listed above, I paired a CSV I found that contained COVID-19 data. The CSV came from the same data source that the famous John Hopkins visualization came from. (https://gisanddata.maps.arcgis.com/apps/opsdashboard/index.html#/bda7594740fd40299423467b48e9ecf6)
 
-### `yarn test`
+Reading up on Mapbox-GL documentation, I had to supply a geojson file. I also found an existing geojson file that contained the shapes of the US States. But I wanted to append the COVID data to this geojson file, so I wrote a small script to do just that. It's in the `scripts` folder inside `src`.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Now that I had the data I needed, I uploaded what I had to Mapbox Studio. Using their web app, I created a "style" that I could import using their SDK into React. Allowing their code to do most of the heavy lifting of rendering the map and data.
 
-### `yarn build`
+The code I wrote in the `Map` component consists of showing various layers that are already embedded in the "style" that I added via Mapbox Studio. And also leveraging their SDK to show tooltips/popup info boxes on the map itself.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+For such a small web app, Redux and Sagas is probably overkill but I wanted to show case its usage and my knowledge of how to integrate it into a React project. Plus, if the web app ever needs to expand, it can be easily done now that Redux and Sagas is already in the project.
